@@ -203,23 +203,19 @@ $$
 The objective is to minimize the squared Frobenius mismatch between the target QUBO matrix and the interaction matrix induced by the fixed layout:
 
 $$
-\min
-\sum_{i<j}
-e_{ij}^2
+\min \sum_{i<j} e_{ij}^{2}
 $$
 
 Equivalently:
 
 $$
-\min
-\sum_{i<j}
+\min \sum_{i<j}
 \left(
-\sum_{\ell\in\mathcal L}
-\sum_{\substack{s,t\in\mathcal S\\s\ne t}}
-I_{\ell st}
-p_{\ell i j s t}
--Q_{ij}
-\right)^2
+\sum_{\ell\in\mathcal{L}}
+\sum_{\substack{s,t\in\mathcal{S}\\ s\ne t}}
+I_{\ell st} p_{\ell i j s t}
+- Q_{ij}
+\right)^{2}
 $$
 
 This corresponds to the AMPL objective:
