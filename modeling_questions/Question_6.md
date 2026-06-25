@@ -32,7 +32,7 @@ Because the fixed-layout version contains binary layout-selection and atom-to-si
 
 ## 1. Objective Used by the Heuristic
 
-For a selected layout $\ell$, let $\pi(i)$ be the site assigned to atom $i$. The physical interaction induced by the assignment is:
+For a selected layout \(\ell\), let \(\pi(i)\) be the site assigned to atom \(i\). The physical interaction induced by the assignment is:
 
 $$
 \hat Q_{ij}
@@ -42,7 +42,7 @@ I_{\ell,\pi(i),\pi(j)}
 \forall i<j
 $$
 
-where $I_{\ell st}$ is the precomputed interaction between sites $s$ and $t$ in layout $\ell$.
+where \(I_{\ell st}\) is the precomputed interaction between sites \(s\) and \(t\) in layout \(\ell\).
 
 The heuristic minimizes the same objective as the exact model:
 
@@ -69,17 +69,17 @@ The best solution found over all layouts and restarts is returned.
 
 ## 3. Initial Solution Construction
 
-For each layout $\ell$, first check whether it has at least $N$ available sites. If not, skip it.
+For each layout \(\ell\), first check whether it has at least \(N\) available sites. If not, skip it.
 
 Then create one or more initial assignments using either:
 
 * **Random initialization**: randomly assign atoms to distinct available sites.
-* **Greedy initialization**: match the largest target interactions in $Q$ with the largest physical interactions in the layout.
+* **Greedy initialization**: match the largest target interactions in \(Q\) with the largest physical interactions in the layout.
 
 The greedy initialization can be described as follows:
 
-1. Sort atom pairs $(i,j)$ by decreasing $|Q_{ij}|$.
-2. Sort available site pairs $(s,t)$ by decreasing $I_{\ell st}$.
+1. Sort atom pairs \((i,j)\) by decreasing \(|Q_{ij}|\).
+2. Sort available site pairs \((s,t)\) by decreasing \(I_{\ell st}\).
 3. Assign atoms appearing in high-priority pairs to sites appearing in high-interaction site pairs whenever this does not violate the one-atom-per-site rule.
 4. Assign any remaining atoms randomly to unused available sites.
 
@@ -87,15 +87,15 @@ This produces a structured starting point that already tries to align strong QUB
 
 ## 4. Local Search Neighborhood
 
-Given a current assignment $\pi$, the heuristic explores neighboring assignments using simple moves:
+Given a current assignment \(\pi\), the heuristic explores neighboring assignments using simple moves:
 
-* **Swap move**: exchange the sites of two atoms $i$ and $j$.
-* **Relocation move**: move one atom $i$ to an unused available site, if the layout has more sites than atoms.
+* **Swap move**: exchange the sites of two atoms \(i\) and \(j\).
+* **Relocation move**: move one atom \(i\) to an unused available site, if the layout has more sites than atoms.
 * **Layout move**: restart the assignment search on another layout.
 
-For each move, compute the change in the objective. The current implementation recomputes the full objective after each move, which costs $O(N^2)$. A more optimized implementation can use delta evaluation: a swap or relocation only affects the interactions involving the moved atoms, so the objective change can be computed in $O(N)$.
+For each move, compute the change in the objective. The current implementation recomputes the full objective after each move, which costs \(O(N^2)\). A more optimized implementation can use delta evaluation: a swap or relocation only affects the interactions involving the moved atoms, so the objective change can be computed in \(O(N)\).
 
-For example, if atom $i$ moves from site $s$ to site $s'$, only terms involving $i$ change:
+For example, if atom \(i\) moves from site \(s\) to site \(s'\), only terms involving \(i\) change:
 
 $$
 \Delta
@@ -121,9 +121,9 @@ To avoid getting stuck in poor local minima, the local search can be replaced by
 At each iteration:
 
 1. Generate a random swap or relocation move.
-2. Compute the objective change $\Delta$.
-3. If $\Delta < 0$, accept the move.
-4. If $\Delta \ge 0$, accept the move with probability:
+2. Compute the objective change \(\Delta\).
+3. If \(\Delta < 0\), accept the move.
+4. If \(\Delta \ge 0\), accept the move with probability:
 
 $$
 P(\text{accept})
@@ -131,7 +131,7 @@ P(\text{accept})
 \exp\left(-\frac{\Delta}{T}\right)
 $$
 
-where $T$ is the current temperature.
+where \(T\) is the current temperature.
 
 The temperature is gradually reduced:
 
@@ -139,7 +139,7 @@ $$
 T \leftarrow \alpha T
 $$
 
-with $0<\alpha<1$, for example $\alpha=0.995$.
+with \(0<\alpha<1\), for example \(\alpha=0.995\).
 
 This allows the heuristic to occasionally accept worse assignments early in the search, while becoming more selective as the search progresses.
 
@@ -187,10 +187,10 @@ return best_solution, best_value
 
 Let:
 
-* $L$ be the number of layouts;
-* $R$ be the number of restarts per layout;
-* $K$ be the number of local-search iterations per restart;
-* $N$ be the number of atoms.
+* \(L\) be the number of layouts;
+* \(R\) be the number of restarts per layout;
+* \(K\) be the number of local-search iterations per restart;
+* \(N\) be the number of atoms.
 
 The current implementation recomputes the objective from scratch after each move, so its complexity is:
 
@@ -198,24 +198,24 @@ $$
 O(LRK N^2)
 $$
 
-If delta evaluation is added later for swap and relocation moves, each iteration would cost $O(N)$, giving:
+If delta evaluation is added later for swap and relocation moves, each iteration would cost \(O(N)\), giving:
 
 $$
 O(LR(N^2 + KN))
 $$
 
-The $N^2$ term comes from evaluating the initial assignment.
+The \(N^2\) term comes from evaluating the initial assignment.
 
 ## 8. Use as a Warm Start
 
 The heuristic can also be used as a warm start for the exact AMPL model. It returns:
 
-* the selected layout $\ell$;
-* the atom-to-site assignment $\pi(i)$;
-* the induced interaction matrix $\hat Q$;
+* the selected layout \(\ell\);
+* the atom-to-site assignment \(\pi(i)\);
+* the induced interaction matrix \(\hat Q\);
 * the objective value.
 
-These values can initialize the binary variables $u_\ell$ and $a_{\ell i s}$ in the MIQP model before calling a solver such as Gurobi.
+These values can initialize the binary variables \(u_\ell\) and \(a_{\ell i s}\) in the MIQP model before calling a solver such as Gurobi.
 
 This is useful because the exact model can be expensive for large instances, while a good heuristic solution gives the solver a strong incumbent early in the search.
 

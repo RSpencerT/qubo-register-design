@@ -14,16 +14,16 @@ The exact AMPL model used for comparison is:
 
 Let:
 
-* $N$ be the number of atoms;
-* $L$ be the number of fixed layouts;
-* $S_\ell$ be the number of available sites in layout $\ell$;
-* $S=\max_{\ell} S_\ell$;
-* $R$ be the number of restarts per layout;
-* $K$ be the number of simulated annealing iterations per restart.
+* \(N\) be the number of atoms;
+* \(L\) be the number of fixed layouts;
+* \(S_\ell\) be the number of available sites in layout \(\ell\);
+* \(S=\max_{\ell} S_\ell\);
+* \(R\) be the number of restarts per layout;
+* \(K\) be the number of simulated annealing iterations per restart.
 
 The implemented heuristic searches over feasible atom-to-site assignments for each layout.
 
-For one layout $\ell$, a feasible assignment is an injective mapping:
+For one layout \(\ell\), a feasible assignment is an injective mapping:
 
 $$
 \pi:
@@ -36,7 +36,7 @@ where no two atoms use the same site.
 
 ## 2. Size of the Search Space
 
-For a fixed layout $\ell$, the number of possible assignments is:
+For a fixed layout \(\ell\), the number of possible assignments is:
 
 $$
 P(S_\ell,N)
@@ -44,7 +44,7 @@ P(S_\ell,N)
 \frac{S_\ell!}{(S_\ell-N)!}
 $$
 
-If $S_\ell=N$, this becomes:
+If \(S_\ell=N\), this becomes:
 
 $$
 N!
@@ -57,11 +57,11 @@ $$
 \frac{S_\ell!}{(S_\ell-N)!}
 $$
 
-Therefore, exact enumeration is factorial in the number of atoms. This is the reason a heuristic is useful: even for moderate $N$, trying every assignment quickly becomes impractical.
+Therefore, exact enumeration is factorial in the number of atoms. This is the reason a heuristic is useful: even for moderate \(N\), trying every assignment quickly becomes impractical.
 
 ## 3. Objective Evaluation Cost
 
-For a selected layout $\ell$ and assignment $\pi$, the objective is:
+For a selected layout \(\ell\) and assignment \(\pi\), the objective is:
 
 $$
 F(\ell,\pi)
@@ -95,7 +95,7 @@ The heuristic uses two types of initial solutions.
 
 ### Random Initialization
 
-Random initialization samples $N$ distinct sites from the available sites. Its complexity is:
+Random initialization samples \(N\) distinct sites from the available sites. Its complexity is:
 
 $$
 O(N)
@@ -107,7 +107,7 @@ This is implemented by:
 
 ### Greedy Initialization
 
-The greedy initialization first computes an atom score based on the absolute interaction values in $Q$. This requires scanning the matrix:
+The greedy initialization first computes an atom score based on the absolute interaction values in \(Q\). This requires scanning the matrix:
 
 $$
 O(N^2)
@@ -119,7 +119,7 @@ $$
 O(NS^2)
 $$
 
-If the number of sites is close to the number of atoms, $S=O(N)$, this becomes:
+If the number of sites is close to the number of atoms, \(S=O(N)\), this becomes:
 
 $$
 O(N^3)
@@ -129,7 +129,7 @@ This is implemented by:
 
 * `greedy_assignment`
 
-Since the greedy initialization is only used once per layout in the current implementation, its cost is usually dominated by the simulated annealing phase for large $K$.
+Since the greedy initialization is only used once per layout in the current implementation, its cost is usually dominated by the simulated annealing phase for large \(K\).
 
 ## 5. Neighborhood Move Complexity
 
@@ -168,7 +168,7 @@ $$
 O(N^2)
 $$
 
-Therefore, one simulated annealing run with $K$ iterations costs:
+Therefore, one simulated annealing run with \(K\) iterations costs:
 
 $$
 O(KN^2)
@@ -180,7 +180,7 @@ This is implemented by:
 
 ## 7. Total Time Complexity of the Implemented Heuristic
 
-For each feasible layout, the heuristic performs $R$ restarts. Each restart runs simulated annealing for $K$ iterations.
+For each feasible layout, the heuristic performs \(R\) restarts. Each restart runs simulated annealing for \(K\) iterations.
 
 Ignoring lower-order initialization costs, the total running time is:
 
@@ -201,9 +201,9 @@ RKN^2
 \right)
 $$
 
-when $S=O(N)$.
+when \(S=O(N)\).
 
-If the number of available sites can be larger than $N$, a more general expression is:
+If the number of available sites can be larger than \(N\), a more general expression is:
 
 $$
 O\left(
@@ -216,7 +216,7 @@ RKN^2
 \right)
 $$
 
-The $NS^2$ term comes from the greedy initialization, and the $RKN^2$ term comes from repeated objective evaluations during simulated annealing.
+The \(NS^2\) term comes from the greedy initialization, and the \(RKN^2\) term comes from repeated objective evaluations during simulated annealing.
 
 ## 8. Possible Improvement with Delta Evaluation
 
@@ -254,11 +254,11 @@ The current implementation favors clarity and correctness, so it recomputes the 
 
 The main memory requirements are:
 
-* the QUBO matrix $Q$: $O(N^2)$;
-* the interaction matrices $I_{\ell st}$: $O(LS^2)$;
-* the availability matrix: $O(LS)$;
-* the current and candidate assignments: $O(N)$;
-* the induced interaction matrix printed at the end: $O(N^2)$.
+* the QUBO matrix \(Q\): \(O(N^2)\);
+* the interaction matrices \(I_{\ell st}\): \(O(LS^2)\);
+* the availability matrix: \(O(LS)\);
+* the current and candidate assignments: \(O(N)\);
+* the induced interaction matrix printed at the end: \(O(N^2)\).
 
 Therefore, the total space complexity is:
 
@@ -266,7 +266,7 @@ $$
 O(N^2 + LS^2)
 $$
 
-If $S=O(N)$, this becomes:
+If \(S=O(N)\), this becomes:
 
 $$
 O(LN^2)
@@ -288,7 +288,7 @@ $$
 
 This makes the exact MIQP model much harder than the heuristic for large instances.
 
-The heuristic does not guarantee global optimality, but it has a predictable polynomial running time once $R$ and $K$ are fixed:
+The heuristic does not guarantee global optimality, but it has a predictable polynomial running time once \(R\) and \(K\) are fixed:
 
 $$
 O(LRKN^2)
@@ -307,11 +307,11 @@ This makes it suitable for:
 
 The main parameters controlling runtime are:
 
-* `--restarts`, corresponding to $R$;
-* `--iterations`, corresponding to $K$;
-* the number of layouts in the `.dat` file, corresponding to $L$;
-* the number of atoms, corresponding to $N$.
+* `--restarts`, corresponding to \(R\);
+* `--iterations`, corresponding to \(K\);
+* the number of layouts in the `.dat` file, corresponding to \(L\);
+* the number of atoms, corresponding to \(N\).
 
-For example, doubling the number of iterations roughly doubles the runtime. Doubling the number of atoms can increase runtime by approximately a factor of four in the current implementation, because each objective evaluation is $O(N^2)$.
+For example, doubling the number of iterations roughly doubles the runtime. Doubling the number of atoms can increase runtime by approximately a factor of four in the current implementation, because each objective evaluation is \(O(N^2)\).
 
-Thus, the heuristic is scalable in the search-control parameters $R$ and $K$, but the atom count $N$ is the most important structural driver of computational cost.
+Thus, the heuristic is scalable in the search-control parameters \(R\) and \(K\), but the atom count \(N\) is the most important structural driver of computational cost.

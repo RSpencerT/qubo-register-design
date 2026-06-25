@@ -1,6 +1,6 @@
 # 2 – Provide a cost function to be optimized.
 
-The central optimization goal is to make the physical Rydberg interaction matrix induced by a register layout approximate a target QUBO interaction matrix $Q$. For two atoms $i$ and $j$ placed at coordinates $r_i=(x_i,y_i)$ and $r_j=(x_j,y_j)$, the physical interaction is modeled as:
+The central optimization goal is to make the physical Rydberg interaction matrix induced by a register layout approximate a target QUBO interaction matrix \(Q\). For two atoms \(i\) and \(j\) placed at coordinates \(r_i=(x_i,y_i)\) and \(r_j=(x_j,y_j)\), the physical interaction is modeled as:
 
 $$
 U_{ij}(r) = \frac{C_6}{\|r_i-r_j\|^6}
@@ -21,10 +21,10 @@ $$
 
 where:
 
-* $Q_{ij}$ is the target interaction between QUBO variables $i$ and $j$;
-* $C_6$ is the Rydberg interaction coefficient;
-* $\varepsilon$ is a small safety term to avoid division by zero;
-* $r_i$ is the physical position of atom $i$.
+* \(Q_{ij}\) is the target interaction between QUBO variables \(i\) and \(j\);
+* \(C_6\) is the Rydberg interaction coefficient;
+* \(\varepsilon\) is a small safety term to avoid division by zero;
+* \(r_i\) is the physical position of atom \(i\).
 
 ## Free-Space Register Design
 
@@ -72,7 +72,7 @@ $$
 }
 $$
 
-where $\tau$ is a small tolerance threshold for zero-interaction entries.
+where \(\tau\) is a small tolerance threshold for zero-interaction entries.
 
 ## Fixed-Layout Register Design
 
@@ -80,12 +80,12 @@ In the fixed-layout version, atoms cannot be placed freely. Instead, the model c
 
 Let:
 
-* $L$ be the set of candidate layouts;
-* $S$ be the set of calibrated sites;
-* $I_{\ell st}$ be the precomputed physical interaction between sites $s$ and $t$ in layout $\ell$;
-* $a_{\ell i s}\in\{0,1\}$ indicate whether atom $i$ is assigned to site $s$ in layout $\ell$.
+* \(L\) be the set of candidate layouts;
+* \(S\) be the set of calibrated sites;
+* \(I_{\ell st}\) be the precomputed physical interaction between sites \(s\) and \(t\) in layout \(\ell\);
+* \(a_{\ell i s}\in\{0,1\}\) indicate whether atom \(i\) is assigned to site \(s\) in layout \(\ell\).
 
-The induced interaction between atoms $i$ and $j$ is:
+The induced interaction between atoms \(i\) and \(j\) is:
 
 $$
 \hat Q_{ij}
