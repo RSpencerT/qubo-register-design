@@ -16,13 +16,13 @@ The following valid inequalities strengthen the formulation without removing any
 
 Each selected layout must contain enough available sites to place all atoms. Let:
 
-```math
+```text
 M_\ell = \sum_{s\in\mathcal S} B_{\ell s}
 ```
 
 where `B[l,s]` indicates whether site `s` is available in layout `l`. Then:
 
-```math
+```text
 N u_\ell
 \le
 \sum_{s\in\mathcal S} B_{\ell s}
@@ -32,7 +32,7 @@ N u_\ell
 
 Equivalently:
 
-```math
+```text
 u_\ell = 0
 \quad
 \text{if}
@@ -46,7 +46,7 @@ This inequality removes layouts that cannot physically host all atoms.
 
 The current model already enforces:
 
-```math
+```text
 a_{\ell i s}
 \le
 B_{\ell s}u_\ell
@@ -54,7 +54,7 @@ B_{\ell s}u_\ell
 
 A useful aggregate strengthening is:
 
-```math
+```text
 \sum_{s\in\mathcal S}
 a_{\ell i s}
 \le
@@ -69,7 +69,7 @@ This explicitly states that atom `i` cannot be assigned to any site of layout `l
 
 Since exactly one layout is selected, the assignment of each atom can be linked more tightly to each layout:
 
-```math
+```text
 \sum_{s\in\mathcal S}
 a_{\ell i s}
 =
@@ -80,7 +80,7 @@ u_\ell
 
 This is stronger than:
 
-```math
+```text
 \sum_{\ell\in\mathcal L}
 \sum_{s\in\mathcal S}
 a_{\ell i s}
@@ -93,7 +93,7 @@ together with activation constraints. It forces every atom to have exactly one a
 
 The model already contains:
 
-```math
+```text
 \sum_{i\in A}
 a_{\ell i s}
 \le
@@ -102,7 +102,7 @@ B_{\ell s}u_\ell
 
 An aggregate version over all sites gives:
 
-```math
+```text
 \sum_{i\in A}
 \sum_{s\in\mathcal S}
 a_{\ell i s}
@@ -118,7 +118,7 @@ This ensures that the selected layout receives exactly `N` atom-site assignments
 
 For all layouts `l in L`, atom pairs `i<j`, and site pairs `s!=t`:
 
-```math
+```text
 p_{\ell i j s t}
 \le
 u_\ell
@@ -126,13 +126,13 @@ u_\ell
 
 This is implied by:
 
-```math
+```text
 p_{\ell i j s t}\le a_{\ell i s}
 ```
 
 and:
 
-```math
+```text
 a_{\ell i s}\le B_{\ell s}u_\ell
 ```
 
@@ -142,13 +142,13 @@ but adding it can tighten the LP relaxation because it directly links pair varia
 
 For all layouts `l in L`, atom pairs `i<j`, and site pairs `s!=t`:
 
-```math
+```text
 p_{\ell i j s t}
 \le
 B_{\ell s}
 ```
 
-```math
+```text
 p_{\ell i j s t}
 \le
 B_{\ell t}
@@ -160,7 +160,7 @@ If either site is unavailable, the pair assignment must be zero. These are valid
 
 For every atom pair `i<j`, exactly one ordered site pair is induced by the selected layout and assignments:
 
-```math
+```text
 \sum_{\ell\in\mathcal L}
 \sum_{\substack{s,t\in\mathcal S\\s\ne t}}
 p_{\ell i j s t}
@@ -176,7 +176,7 @@ This is implied by the assignment constraints and the linearization, but adding 
 
 If two layouts `l1` and `l2` have identical interaction matrices:
 
-```math
+```text
 I_{\ell_1 st}=I_{\ell_2 st}
 \quad
 \forall s,t
@@ -184,7 +184,7 @@ I_{\ell_1 st}=I_{\ell_2 st}
 
 then they are interchangeable. A valid symmetry-breaking inequality is:
 
-```math
+```text
 u_{\ell_1}
 \ge
 u_{\ell_2}
@@ -196,7 +196,7 @@ for an arbitrary ordering `l1 < l2`. This prevents the solver from exploring equ
 
 If two atoms `i` and `j` have identical interaction profiles in `Q`, meaning:
 
-```math
+```text
 Q_{ik}=Q_{jk}
 \quad
 \forall k\ne i,j
@@ -206,7 +206,7 @@ then atoms `i` and `j` are interchangeable. A symmetry-breaking rule can impose 
 
 Let `idx(s)` be the index of site `s`. Then:
 
-```math
+```text
 \sum_{\ell\in\mathcal L}
 \sum_{s\in\mathcal S}
 idx(s)a_{\ell i s}
@@ -222,21 +222,21 @@ This reduces equivalent permutations of identical atoms.
 
 Let:
 
-```math
+```text
 I_{\min} =
 \min_{\ell,s,t:s\ne t} I_{\ell st}
 ```
 
 and:
 
-```math
+```text
 I_{\max} =
 \max_{\ell,s,t:s\ne t} I_{\ell st}
 ```
 
 Since the induced interaction for any atom pair must lie between `I_min` and `I_max`, we can bound the error variable:
 
-```math
+```text
 I_{\min}-Q_{ij}
 \le
 e_{ij}
@@ -252,7 +252,7 @@ These bounds help the solver handle the quadratic objective more tightly.
 
 If `Q[i,j] = 0`, the model should prefer site pairs with low physical interaction. A valid inequality using a tolerance threshold `tau` can eliminate site-pair assignments that are guaranteed to exceed a user-defined acceptable interaction:
 
-```math
+```text
 p_{\ell i j s t}=0
 \quad
 \text{if}
@@ -268,7 +268,7 @@ This is not valid for the unconstrained least-squares model unless `tau` is decl
 
 Similarly, if `Q[i,j]` is large, site pairs with interactions far below the target can be excluded under a tolerance parameter `delta`:
 
-```math
+```text
 p_{\ell i j s t}=0
 \quad
 \text{if}

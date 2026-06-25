@@ -6,7 +6,7 @@ The bounds depend on which version of the problem is considered. The most releva
 
 The free-space objective is:
 
-```math
+```text
 F(r)
 =
 \left(
@@ -24,19 +24,19 @@ where `r[i]=(x[i],y[i])`, `x[i], y[i] in [0,L]`, `C_6>0`, and `epsilon>0`.
 
 Since the objective is a square root of a sum of squared terms:
 
-```math
+```text
 F(r) \ge 0
 ```
 
 Thus, for any arbitrary instance:
 
-```math
+```text
 \boxed{LB = 0}
 ```
 
 This lower bound is tight if there exists a register geometry whose physical interactions match the target matrix exactly:
 
-```math
+```text
 \frac{C_6}{\|r_i-r_j\|^6+\varepsilon}=Q_{ij}
 \quad \forall i\ne j
 ```
@@ -47,7 +47,7 @@ In practice, this exact equality is often impossible due to geometric constraint
 
 Because of the safety term `epsilon`, the physical interaction is bounded above:
 
-```math
+```text
 0 \le
 \frac{C_6}{\|r_i-r_j\|^6+\varepsilon}
 \le
@@ -56,7 +56,7 @@ Because of the safety term `epsilon`, the physical interaction is bounded above:
 
 Therefore, for every pair `(i,j)`:
 
-```math
+```text
 \left|
 \frac{C_6}{\|r_i-r_j\|^6+\varepsilon}
 -Q_{ij}
@@ -71,7 +71,7 @@ Therefore, for every pair `(i,j)`:
 
 A valid instance-independent upper bound is:
 
-```math
+```text
 \boxed{
 UB_{\text{free}}
 =
@@ -99,7 +99,7 @@ This objective appears in:
 
 In the fixed-layout variant, the set of possible interactions is finite because the layouts and trapping sites are fixed. The objective is:
 
-```math
+```text
 F_{\text{fixed}}(a)
 =
 \sum_{i<j}
@@ -108,7 +108,7 @@ F_{\text{fixed}}(a)
 
 where:
 
-```math
+```text
 \hat Q_{ij}
 =
 \sum_{\ell \in L}
@@ -122,7 +122,7 @@ Here, `I[l,s,t]` is the precomputed interaction between sites `s` and `t` in lay
 
 Again, this is a sum of squared terms, so:
 
-```math
+```text
 \boxed{LB_{\text{fixed}} = 0}
 ```
 
@@ -130,19 +130,19 @@ Again, this is a sum of squared terms, so:
 
 Let:
 
-```math
+```text
 I_{\max} = \max_{\ell,s,t:s\ne t} I_{\ell st}
 ```
 
 Since the selected physical interaction for any atom pair must be one of the available site-pair interactions:
 
-```math
+```text
 0 \le \hat Q_{ij} \le I_{\max}
 ```
 
 Therefore:
 
-```math
+```text
 \left|\hat Q_{ij}-Q_{ij}\right|
 \le
 \max
@@ -154,7 +154,7 @@ Therefore:
 
 A valid upper bound is:
 
-```math
+```text
 \boxed{
 UB_{\text{fixed}}
 =
@@ -169,7 +169,7 @@ UB_{\text{fixed}}
 
 Since the fixed-layout problem has a finite feasible set, a tighter upper bound can also be obtained by evaluating any feasible layout assignment. For example, assigning atoms greedily to the first available sites in any available layout gives a constructive feasible solution and therefore a valid upper bound:
 
-```math
+```text
 UB_{\text{constructive}}
 =
 F_{\text{fixed}}(a^{\text{greedy}})
@@ -189,7 +189,7 @@ This objective appears in:
 
 The main Python heuristic uses an asymmetric cost:
 
-```math
+```text
 F_{\text{heur}}(r)
 =
 \left(
@@ -203,7 +203,7 @@ F_{\text{heur}}(r)
 
 where:
 
-```math
+```text
 U_{ij}=\frac{C_6}{\|r_i-r_j\|^6}
 ```
 
@@ -211,19 +211,19 @@ and `tau` is a tolerance threshold for zero target interactions.
 
 The lower bound is:
 
-```math
+```text
 \boxed{LB_{\text{heur}} = 0}
 ```
 
 If a minimum physical distance `d_min > 0` is enforced, then:
 
-```math
+```text
 U_{ij} \le \frac{C_6}{d_{\min}^6}
 ```
 
 and a valid upper bound is:
 
-```math
+```text
 \boxed{
 UB_{\text{heur}}
 =
@@ -256,7 +256,7 @@ This cost appears in:
 
 For the binary QUBO problem:
 
-```math
+```text
 f(x)=x^TQx,
 \quad x\in\{0,1\}^N
 ```
@@ -265,7 +265,7 @@ Because the feasible set is finite, simple universal bounds can be written in te
 
 Let:
 
-```math
+```text
 Q_{ij}^{+}=\max(Q_{ij},0),
 \quad
 Q_{ij}^{-}=\min(Q_{ij},0)
@@ -273,7 +273,7 @@ Q_{ij}^{-}=\min(Q_{ij},0)
 
 Then:
 
-```math
+```text
 \boxed{
 LB_{\text{QUBO}}
 =
@@ -283,7 +283,7 @@ LB_{\text{QUBO}}
 
 and:
 
-```math
+```text
 \boxed{
 UB_{\text{QUBO}}
 =
@@ -295,13 +295,13 @@ These bounds are conservative because not every subset of terms can be activated
 
 A tighter constructive upper bound is obtained by evaluating any feasible binary vector, for example `x=0`:
 
-```math
+```text
 f(0)=0
 ```
 
 so:
 
-```math
+```text
 \boxed{UB_{\text{QUBO}} = 0}
 ```
 
@@ -318,7 +318,7 @@ This objective appears in:
 
 For the register-design objectives, the most important universal bound is:
 
-```math
+```text
 \boxed{0 \le F}
 ```
 

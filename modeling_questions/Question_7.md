@@ -165,7 +165,7 @@ Represents a candidate assignment of atoms to sites in one selected layout.
 
 Conceptually, an assignment is:
 
-```math
+```text
 \pi(i)=s
 ```
 
@@ -205,7 +205,7 @@ Evaluates the quality of a candidate assignment.
 
 For a layout `l` and assignment `pi`, it computes:
 
-```math
+```text
 F(\ell,\pi)
 =
 \sum_{i<j}
@@ -259,7 +259,7 @@ At each iteration, it:
 3. accepts improving moves;
 4. sometimes accepts worse moves with probability:
 
-```math
+```text
 \exp\left(-\frac{\Delta}{T}\right)
 ```
 

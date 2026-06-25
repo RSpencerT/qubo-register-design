@@ -20,14 +20,14 @@ A Genetic Algorithm is a population-based metaheuristic. It keeps several candid
 
 For the free-space version, a chromosome can encode the continuous coordinates of all atoms:
 
-```math
+```text
 x =
 (x_1,y_1,x_2,y_2,\dots,x_N,y_N)
 ```
 
 The fitness function should be the same mapping error already used in the project:
 
-```math
+```text
 f(x)
 =
 \left\|
@@ -50,7 +50,7 @@ This is similar in spirit to the global optimization routines already tested in 
 
 For the fixed-layout version, a chromosome can encode:
 
-```math
+```text
 (\ell,\pi)
 ```
 
@@ -65,7 +65,7 @@ assignment = [S4, S2, S6, S1, S3, S5]
 
 The fitness function is:
 
-```math
+```text
 f(\ell,\pi)
 =
 \sum_{i<j}
@@ -92,7 +92,7 @@ Tabu Search is a local-search metaheuristic. It starts from one feasible solutio
 
 For the free-space version, a solution is again a continuous coordinate vector:
 
-```math
+```text
 x =
 (x_1,y_1,\dots,x_N,y_N)
 ```
@@ -112,7 +112,7 @@ For the fixed-layout version, Tabu Search is very natural because the search spa
 
 A solution is:
 
-```math
+```text
 (\ell,\pi)
 ```
 
@@ -133,7 +133,7 @@ At each iteration, the algorithm evaluates candidate moves and chooses the best 
 
 The objective is the same:
 
-```math
+```text
 \sum_{i<j}
 \left(
 I_{\ell,\pi(i),\pi(j)}

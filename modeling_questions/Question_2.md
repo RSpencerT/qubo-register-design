@@ -2,13 +2,13 @@
 
 The central optimization goal is to make the physical Rydberg interaction matrix induced by a register layout approximate a target QUBO interaction matrix `Q`. For two atoms `i` and `j` placed at coordinates `r[i]=(x[i],y[i])` and `r[j]=(x[j],y[j])`, the physical interaction is modeled as:
 
-```math
+```text
 U_{ij}(r) = \frac{C_6}{\|r_i-r_j\|^6}
 ```
 
 Therefore, a natural cost function is the Frobenius mismatch between the target QUBO matrix and the physical interaction matrix:
 
-```math
+```text
 \min_{r_1,\dots,r_N}
 \left(
 \sum_{i \ne j}
@@ -30,13 +30,13 @@ where:
 
 In the free-space version, atom coordinates are continuous decision variables:
 
-```math
+```text
 x_i,y_i \in [0,L]
 ```
 
 The AMPL cost function is:
 
-```math
+```text
 \min
 \sqrt{
 \sum_{i \ne j}
@@ -64,7 +64,7 @@ The same idea also appears in the Python heuristic code:
 
 The Python version uses:
 
-```math
+```text
 \sqrt{
 \sum_{(i,j):Q_{ij}>0}(U_{ij}-Q_{ij})^2
 +
@@ -87,7 +87,7 @@ Let:
 
 The induced interaction between atoms `i` and `j` is:
 
-```math
+```text
 \hat Q_{ij}
 =
 \sum_{\ell \in L}
@@ -97,7 +97,7 @@ I_{\ell st}\,a_{\ell i s}\,a_{\ell j t}
 
 The cost function is:
 
-```math
+```text
 \min
 \sum_{i<j}
 (\hat Q_{ij}-Q_{ij})^2
@@ -118,7 +118,7 @@ The data instance for this model can be generated with:
 
 For the purely classical QUBO problem, the cost function is:
 
-```math
+```text
 \min_{x\in\{0,1\}^N} x^TQx
 ```
 
@@ -133,13 +133,13 @@ This is implemented in:
 
 The original set partitioning objective is:
 
-```math
+```text
 \min \sum_j c_jx_j
 ```
 
 subject to exact-cover constraints:
 
-```math
+```text
 \sum_j A_{ij}x_j = 1
 ```
 
@@ -150,7 +150,7 @@ This is implemented in:
 
 The transformation from set partitioning to QUBO uses the penalty objective:
 
-```math
+```text
 f(x)
 =
 \sum_j c_jx_j

@@ -25,7 +25,7 @@ The implemented heuristic searches over feasible atom-to-site assignments for ea
 
 For one layout `l`, a feasible assignment is an injective mapping:
 
-```math
+```text
 \pi:
 \{1,\dots,N\}
 \rightarrow
@@ -38,7 +38,7 @@ where no two atoms use the same site.
 
 For a fixed layout `l`, the number of possible assignments is:
 
-```math
+```text
 P(S_\ell,N)
 =
 \frac{S_\ell!}{(S_\ell-N)!}
@@ -46,13 +46,13 @@ P(S_\ell,N)
 
 If `S[l]=N`, this becomes:
 
-```math
+```text
 N!
 ```
 
 Across all layouts, the total search space is:
 
-```math
+```text
 \sum_{\ell=1}^{L}
 \frac{S_\ell!}{(S_\ell-N)!}
 ```
@@ -63,7 +63,7 @@ Therefore, exact enumeration is factorial in the number of atoms. This is the re
 
 For a selected layout `l` and assignment `pi`, the objective is:
 
-```math
+```text
 F(\ell,\pi)
 =
 \sum_{i<j}
@@ -75,13 +75,13 @@ I_{\ell,\pi(i),\pi(j)}
 
 There are:
 
-```math
+```text
 \frac{N(N-1)}{2}
 ```
 
 atom pairs. Therefore, evaluating one complete assignment from scratch costs:
 
-```math
+```text
 O(N^2)
 ```
 
@@ -97,7 +97,7 @@ The heuristic uses two types of initial solutions.
 
 Random initialization samples `N` distinct sites from the available sites. Its complexity is:
 
-```math
+```text
 O(N)
 ```
 
@@ -109,19 +109,19 @@ This is implemented by:
 
 The greedy initialization first computes an atom score based on the absolute interaction values in `Q`. This requires scanning the matrix:
 
-```math
+```text
 O(N^2)
 ```
 
 Then, for each atom, it tests candidate sites against the atoms already assigned. In the worst case, this costs:
 
-```math
+```text
 O(NS^2)
 ```
 
 If the number of sites is close to the number of atoms, `S=O(N)`, this becomes:
 
-```math
+```text
 O(N^3)
 ```
 
@@ -142,7 +142,7 @@ Generating a neighbor requires copying the current assignment dictionary and mod
 
 With the current implementation, this costs:
 
-```math
+```text
 O(N)
 ```
 
@@ -164,13 +164,13 @@ Each simulated annealing iteration:
 
 Because the current implementation evaluates the candidate assignment from scratch, each iteration costs:
 
-```math
+```text
 O(N^2)
 ```
 
 Therefore, one simulated annealing run with `K` iterations costs:
 
-```math
+```text
 O(KN^2)
 ```
 
@@ -184,13 +184,13 @@ For each feasible layout, the heuristic performs `R` restarts. Each restart runs
 
 Ignoring lower-order initialization costs, the total running time is:
 
-```math
+```text
 O(LRKN^2)
 ```
 
 Including initialization, a more detailed bound is:
 
-```math
+```text
 O\left(
 L
 \left(
@@ -205,7 +205,7 @@ when `S=O(N)`.
 
 If the number of available sites can be larger than `N`, a more general expression is:
 
-```math
+```text
 O\left(
 L
 \left(
@@ -224,25 +224,25 @@ The theoretical heuristic described in Question 6 can be improved using delta ev
 
 For a swap or relocation move, only the terms involving the moved atoms change. Therefore, instead of recomputing the full objective in:
 
-```math
+```text
 O(N^2)
 ```
 
 the objective difference can be computed in:
 
-```math
+```text
 O(N)
 ```
 
 With delta evaluation, one simulated annealing run would cost:
 
-```math
+```text
 O(KN)
 ```
 
 and the full heuristic would cost:
 
-```math
+```text
 O(LRKN)
 ```
 
@@ -262,13 +262,13 @@ The main memory requirements are:
 
 Therefore, the total space complexity is:
 
-```math
+```text
 O(N^2 + LS^2)
 ```
 
 If `S=O(N)`, this becomes:
 
-```math
+```text
 O(LN^2)
 ```
 
@@ -282,7 +282,7 @@ The exact Fixed Layout Register Design model contains binary variables for:
 
 The number of pair-assignment variables scales approximately as:
 
-```math
+```text
 O(LN^2S^2)
 ```
 
@@ -290,7 +290,7 @@ This makes the exact MIQP model much harder than the heuristic for large instanc
 
 The heuristic does not guarantee global optimality, but it has a predictable polynomial running time once `R` and `K` are fixed:
 
-```math
+```text
 O(LRKN^2)
 ```
 

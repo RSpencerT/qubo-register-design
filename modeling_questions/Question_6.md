@@ -34,7 +34,7 @@ Because the fixed-layout version contains binary layout-selection and atom-to-si
 
 For a selected layout `l`, let `pi(i)` be the site assigned to atom `i`. The physical interaction induced by the assignment is:
 
-```math
+```text
 \hat Q_{ij}
 =
 I_{\ell,\pi(i),\pi(j)}
@@ -46,7 +46,7 @@ where `I[l,s,t]` is the precomputed interaction between sites `s` and `t` in lay
 
 The heuristic minimizes the same objective as the exact model:
 
-```math
+```text
 \min
 \sum_{i<j}
 \left(
@@ -97,7 +97,7 @@ For each move, compute the change in the objective. The current implementation r
 
 For example, if atom `i` moves from site `s` to site `s'`, only terms involving `i` change:
 
-```math
+```text
 \Delta
 =
 \sum_{j\ne i}
@@ -125,7 +125,7 @@ At each iteration:
 3. If `Delta < 0`, accept the move.
 4. If `Delta >= 0`, accept the move with probability:
 
-```math
+```text
 P(\text{accept})
 =
 \exp\left(-\frac{\Delta}{T}\right)
@@ -135,7 +135,7 @@ where `T` is the current temperature.
 
 The temperature is gradually reduced:
 
-```math
+```text
 T \leftarrow \alpha T
 ```
 
@@ -194,13 +194,13 @@ Let:
 
 The current implementation recomputes the objective from scratch after each move, so its complexity is:
 
-```math
+```text
 O(LRK N^2)
 ```
 
 If delta evaluation is added later for swap and relocation moves, each iteration would cost `O(N)`, giving:
 
-```math
+```text
 O(LR(N^2 + KN))
 ```
 

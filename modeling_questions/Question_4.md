@@ -31,7 +31,7 @@ The input data are:
 
 The physical interaction is precomputed as:
 
-```math
+```text
 I_{\ell st}
 =
 \frac{C_6}
@@ -47,7 +47,7 @@ I_{\ell st}
 
 and:
 
-```math
+```text
 I_{\ell ss}=0
 ```
 
@@ -61,7 +61,7 @@ The data instance can be generated with:
 
 Let:
 
-```math
+```text
 u_\ell =
 \begin{cases}
 1, & \text{if layout } \ell \text{ is selected} \\
@@ -73,7 +73,7 @@ u_\ell =
 
 Let:
 
-```math
+```text
 a_{\ell i s} =
 \begin{cases}
 1, & \text{if atom } i \text{ is assigned to site } s \text{ in layout } \ell \\
@@ -85,13 +85,13 @@ a_{\ell i s} =
 
 The interaction induced by two assigned atoms contains a product:
 
-```math
+```text
 a_{\ell i s}a_{\ell j t}
 ```
 
 To linearize this product, introduce:
 
-```math
+```text
 p_{\ell i j s t}
 =
 a_{\ell i s}a_{\ell j t}
@@ -103,7 +103,7 @@ for `i<j` and `s!= t`.
 
 Let:
 
-```math
+```text
 e_{ij}
 ```
 
@@ -113,13 +113,13 @@ be the difference between the physical interaction induced by the selected layou
 
 ### Select Exactly One Layout
 
-```math
+```text
 \sum_{\ell\in\mathcal L} u_\ell = 1
 ```
 
 ### Assign Each Atom Exactly Once
 
-```math
+```text
 \sum_{\ell\in\mathcal L}
 \sum_{s\in\mathcal S}
 a_{\ell i s}
@@ -130,7 +130,7 @@ a_{\ell i s}
 
 ### Use Only Available Sites in the Selected Layout
 
-```math
+```text
 a_{\ell i s}
 \le
 B_{\ell s}u_\ell
@@ -140,7 +140,7 @@ B_{\ell s}u_\ell
 
 ### At Most One Atom Per Site
 
-```math
+```text
 \sum_{i\in A}
 a_{\ell i s}
 \le
@@ -153,19 +153,19 @@ B_{\ell s}u_\ell
 
 For all layouts `l in L`, atom pairs `i<j`, and site pairs `s!=t`:
 
-```math
+```text
 p_{\ell i j s t}
 \le
 a_{\ell i s}
 ```
 
-```math
+```text
 p_{\ell i j s t}
 \le
 a_{\ell j t}
 ```
 
-```math
+```text
 p_{\ell i j s t}
 \ge
 a_{\ell i s}
@@ -176,7 +176,7 @@ a_{\ell j t}
 
 Together, these constraints enforce:
 
-```math
+```text
 p_{\ell i j s t}
 =
 a_{\ell i s}a_{\ell j t}
@@ -188,7 +188,7 @@ for binary variables.
 
 For each atom pair `i<j`:
 
-```math
+```text
 e_{ij}
 =
 \sum_{\ell\in\mathcal L}
@@ -202,7 +202,7 @@ p_{\ell i j s t}
 
 The objective is to minimize the squared Frobenius mismatch between the target QUBO matrix and the interaction matrix induced by the fixed layout:
 
-```math
+```text
 \min
 \sum_{i<j}
 e_{ij}^2
@@ -210,7 +210,7 @@ e_{ij}^2
 
 Equivalently:
 
-```math
+```text
 \min
 \sum_{i<j}
 \left(
@@ -239,7 +239,7 @@ The resulting formulation is a **Mixed-Integer Quadratic Program (MIQP)**:
 
 This is substantially more solver-friendly than a direct nonlinear formulation with products such as:
 
-```math
+```text
 u_\ell a_{\ell i s} a_{\ell j t}
 ```
 
@@ -253,13 +253,13 @@ The free-space version is implemented in:
 
 Its decision variables are continuous coordinates:
 
-```math
+```text
 x_i,y_i\in[0,L]
 ```
 
 and the objective is:
 
-```math
+```text
 \min
 \sqrt{
 \sum_{i\ne j}
