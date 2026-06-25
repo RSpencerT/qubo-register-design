@@ -2,13 +2,13 @@
 
 The central optimization goal is to make the physical Rydberg interaction matrix induced by a register layout approximate a target QUBO interaction matrix `Q`. For two atoms `i` and `j` placed at coordinates `r[i]=(x[i],y[i])` and `r[j]=(x[j],y[j])`, the physical interaction is modeled as:
 
-$$
+```math
 U_{ij}(r) = \frac{C_6}{\|r_i-r_j\|^6}
-$$
+```
 
 Therefore, a natural cost function is the Frobenius mismatch between the target QUBO matrix and the physical interaction matrix:
 
-$$
+```math
 \min_{r_1,\dots,r_N}
 \left(
 \sum_{i \ne j}
@@ -17,7 +17,7 @@ $$
 - Q_{ij}
 \right)^2
 \right)^{1/2}
-$$
+```
 
 where:
 
@@ -30,13 +30,13 @@ where:
 
 In the free-space version, atom coordinates are continuous decision variables:
 
-$$
+```math
 x_i,y_i \in [0,L]
-$$
+```
 
 The AMPL cost function is:
 
-$$
+```math
 \min
 \sqrt{
 \sum_{i \ne j}
@@ -45,7 +45,7 @@ $$
 -Q_{ij}
 \right)^2
 }
-$$
+```
 
 This is implemented in:
 
@@ -64,13 +64,13 @@ The same idea also appears in the Python heuristic code:
 
 The Python version uses:
 
-$$
+```math
 \sqrt{
 \sum_{(i,j):Q_{ij}>0}(U_{ij}-Q_{ij})^2
 +
 \sum_{(i,j):Q_{ij}=0}\max(U_{ij}-\tau,0)^2
 }
-$$
+```
 
 where `tau` is a small tolerance threshold for zero-interaction entries.
 
@@ -87,21 +87,21 @@ Let:
 
 The induced interaction between atoms `i` and `j` is:
 
-$$
+```math
 \hat Q_{ij}
 =
 \sum_{\ell \in L}
 \sum_{s,t \in S,\,s\ne t}
 I_{\ell st}\,a_{\ell i s}\,a_{\ell j t}
-$$
+```
 
 The cost function is:
 
-$$
+```math
 \min
 \sum_{i<j}
 (\hat Q_{ij}-Q_{ij})^2
-$$
+```
 
 This is implemented in:
 
@@ -118,9 +118,9 @@ The data instance for this model can be generated with:
 
 For the purely classical QUBO problem, the cost function is:
 
-$$
+```math
 \min_{x\in\{0,1\}^N} x^TQx
-$$
+```
 
 This is implemented in:
 
@@ -133,15 +133,15 @@ This is implemented in:
 
 The original set partitioning objective is:
 
-$$
+```math
 \min \sum_j c_jx_j
-$$
+```
 
 subject to exact-cover constraints:
 
-$$
+```math
 \sum_j A_{ij}x_j = 1
-$$
+```
 
 This is implemented in:
 
@@ -150,7 +150,7 @@ This is implemented in:
 
 The transformation from set partitioning to QUBO uses the penalty objective:
 
-$$
+```math
 f(x)
 =
 \sum_j c_jx_j
@@ -160,7 +160,7 @@ f(x)
 \left(
 \sum_j A_{ij}x_j - 1
 \right)^2
-$$
+```
 
 The corresponding implementation is in:
 
