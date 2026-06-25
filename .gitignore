@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.DS_Store
+**/.DS_Store
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+ampl_license.txt

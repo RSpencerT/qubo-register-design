@@ -1,0 +1,13 @@
+--index-url https://pypi.ampl.com
+--extra-index-url https://pypi.org/simple
+numpy
+scipy
+cma
+matplotlib
+pulser
+pulser-simulation
+amplpy
+ampl_module_base
+ampl_module_coin
+ampl_module_gurobi
+ruff

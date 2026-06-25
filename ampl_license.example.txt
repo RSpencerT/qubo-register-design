@@ -1,0 +1,6 @@
+# AMPL license activation
+#
+# Copy this file to ampl_license.txt and replace the placeholder with your
+# private AMPL license UUID. Do not commit ampl_license.txt.
+
+.venv/bin/python -m amplpy.modules activate <your-ampl-license-uuid>
