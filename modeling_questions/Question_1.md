@@ -14,9 +14,9 @@ To analytically break this complexity, we employ a classical combinatorial appro
 
 Instead of mapping the entire graph `G(V, E)` at once, we partition the set of vertices `V` (atoms/variables) into `K` subsets (clusters) `V_1, V_2, ..., V_K`. The objective is to minimize the weight of the cut edges (inter-cluster interactions) while maximizing the internal edges (intra-cluster interactions):
 
-```text
+$$
 \min \sum_{a=1}^{K} \sum_{\substack{i \in V_a \\ j \notin V_a}} Q_{ij}
-```
+$$
 
 This transforms the dense interaction matrix `Q` into an approximately block-diagonal matrix.
 

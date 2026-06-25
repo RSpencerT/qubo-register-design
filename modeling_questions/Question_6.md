@@ -34,26 +34,26 @@ Because the fixed-layout version contains binary layout-selection and atom-to-si
 
 For a selected layout `l`, let `pi(i)` be the site assigned to atom `i`. The physical interaction induced by the assignment is:
 
-```text
+$$
 \hat Q_{ij}
 =
 I_{\ell,\pi(i),\pi(j)}
 \quad
 \forall i<j
-```
+$$
 
 where `I[l,s,t]` is the precomputed interaction between sites `s` and `t` in layout `l`.
 
 The heuristic minimizes the same objective as the exact model:
 
-```text
+$$
 \min
 \sum_{i<j}
 \left(
 I_{\ell,\pi(i),\pi(j)}
 -Q_{ij}
 \right)^2
-```
+$$
 
 This is the squared Frobenius mismatch between the target QUBO interaction matrix and the interaction matrix produced by the selected fixed layout.
 
@@ -97,7 +97,7 @@ For each move, compute the change in the objective. The current implementation r
 
 For example, if atom `i` moves from site `s` to site `s'`, only terms involving `i` change:
 
-```text
+$$
 \Delta
 =
 \sum_{j\ne i}
@@ -110,7 +110,7 @@ I_{\ell,s',\pi(j)}-Q_{ij}
 I_{\ell,s,\pi(j)}-Q_{ij}
 \right)^2
 \right]
-```
+$$
 
 The move is accepted if it improves the objective.
 
@@ -125,19 +125,19 @@ At each iteration:
 3. If `Delta < 0`, accept the move.
 4. If `Delta >= 0`, accept the move with probability:
 
-```text
+$$
 P(\text{accept})
 =
 \exp\left(-\frac{\Delta}{T}\right)
-```
+$$
 
 where `T` is the current temperature.
 
 The temperature is gradually reduced:
 
-```text
+$$
 T \leftarrow \alpha T
-```
+$$
 
 with `0<alpha<1`, for example `alpha=0.995`.
 
@@ -194,15 +194,15 @@ Let:
 
 The current implementation recomputes the objective from scratch after each move, so its complexity is:
 
-```text
+$$
 O(LRK N^2)
-```
+$$
 
 If delta evaluation is added later for swap and relocation moves, each iteration would cost `O(N)`, giving:
 
-```text
+$$
 O(LR(N^2 + KN))
-```
+$$
 
 The `N^2` term comes from evaluating the initial assignment.
 

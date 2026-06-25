@@ -20,20 +20,20 @@ A Genetic Algorithm is a population-based metaheuristic. It keeps several candid
 
 For the free-space version, a chromosome can encode the continuous coordinates of all atoms:
 
-```text
+$$
 x =
 (x_1,y_1,x_2,y_2,\dots,x_N,y_N)
-```
+$$
 
 The fitness function should be the same mapping error already used in the project:
 
-```text
+$$
 f(x)
 =
 \left\|
 U(x)-Q
 \right\|
-```
+$$
 
 where `U(x)` is the physical interaction matrix induced by the coordinates.
 
@@ -50,9 +50,9 @@ This is similar in spirit to the global optimization routines already tested in 
 
 For the fixed-layout version, a chromosome can encode:
 
-```text
+$$
 (\ell,\pi)
-```
+$$
 
 where `l` is the selected layout and `pi` is a permutation-like assignment of atoms to sites.
 
@@ -65,7 +65,7 @@ assignment = [S4, S2, S6, S1, S3, S5]
 
 The fitness function is:
 
-```text
+$$
 f(\ell,\pi)
 =
 \sum_{i<j}
@@ -73,7 +73,7 @@ f(\ell,\pi)
 I_{\ell,\pi(i),\pi(j)}
 -Q_{ij}
 \right)^2
-```
+$$
 
 The Genetic Algorithm would use:
 
@@ -92,10 +92,10 @@ Tabu Search is a local-search metaheuristic. It starts from one feasible solutio
 
 For the free-space version, a solution is again a continuous coordinate vector:
 
-```text
+$$
 x =
 (x_1,y_1,\dots,x_N,y_N)
-```
+$$
 
 Possible moves include:
 
@@ -112,9 +112,9 @@ For the fixed-layout version, Tabu Search is very natural because the search spa
 
 A solution is:
 
-```text
+$$
 (\ell,\pi)
-```
+$$
 
 and the neighborhood can be exactly the same as in the heuristic from Question 6:
 
@@ -133,13 +133,13 @@ At each iteration, the algorithm evaluates candidate moves and chooses the best 
 
 The objective is the same:
 
-```text
+$$
 \sum_{i<j}
 \left(
 I_{\ell,\pi(i),\pi(j)}
 -Q_{ij}
 \right)^2
-```
+$$
 
 ## 3. Which Method Is More Appropriate?
 

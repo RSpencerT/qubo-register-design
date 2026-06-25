@@ -31,7 +31,7 @@ The input data are:
 
 The physical interaction is precomputed as:
 
-```text
+$$
 I_{\ell st}
 =
 \frac{C_6}
@@ -43,13 +43,13 @@ I_{\ell st}
 \right)^3
 }
 \quad s\ne t
-```
+$$
 
 and:
 
-```text
+$$
 I_{\ell ss}=0
-```
+$$
 
 The data instance can be generated with:
 
@@ -61,41 +61,41 @@ The data instance can be generated with:
 
 Let:
 
-```text
+$$
 u_\ell =
 \begin{cases}
 1, & \text{if layout } \ell \text{ is selected} \\
 0, & \text{otherwise}
 \end{cases}
-```
+$$
 
 ### Atom-to-Site Assignment
 
 Let:
 
-```text
+$$
 a_{\ell i s} =
 \begin{cases}
 1, & \text{if atom } i \text{ is assigned to site } s \text{ in layout } \ell \\
 0, & \text{otherwise}
 \end{cases}
-```
+$$
 
 ### Pair Assignment Linearization
 
 The interaction induced by two assigned atoms contains a product:
 
-```text
+$$
 a_{\ell i s}a_{\ell j t}
-```
+$$
 
 To linearize this product, introduce:
 
-```text
+$$
 p_{\ell i j s t}
 =
 a_{\ell i s}a_{\ell j t}
-```
+$$
 
 for `i<j` and `s!= t`.
 
@@ -103,9 +103,9 @@ for `i<j` and `s!= t`.
 
 Let:
 
-```text
+$$
 e_{ij}
-```
+$$
 
 be the difference between the physical interaction induced by the selected layout and the target QUBO interaction `Q[i,j]`.
 
@@ -113,74 +113,74 @@ be the difference between the physical interaction induced by the selected layou
 
 ### Select Exactly One Layout
 
-```text
+$$
 \sum_{\ell\in\mathcal L} u_\ell = 1
-```
+$$
 
 ### Assign Each Atom Exactly Once
 
-```text
+$$
 \sum_{\ell\in\mathcal L}
 \sum_{s\in\mathcal S}
 a_{\ell i s}
 =1
 \quad
 \forall i\in A
-```
+$$
 
 ### Use Only Available Sites in the Selected Layout
 
-```text
+$$
 a_{\ell i s}
 \le
 B_{\ell s}u_\ell
 \quad
 \forall \ell\in\mathcal L,\ i\in A,\ s\in\mathcal S
-```
+$$
 
 ### At Most One Atom Per Site
 
-```text
+$$
 \sum_{i\in A}
 a_{\ell i s}
 \le
 B_{\ell s}u_\ell
 \quad
 \forall \ell\in\mathcal L,\ s\in\mathcal S
-```
+$$
 
 ### Linearization Constraints
 
 For all layouts `l in L`, atom pairs `i<j`, and site pairs `s!=t`:
 
-```text
+$$
 p_{\ell i j s t}
 \le
 a_{\ell i s}
-```
+$$
 
-```text
+$$
 p_{\ell i j s t}
 \le
 a_{\ell j t}
-```
+$$
 
-```text
+$$
 p_{\ell i j s t}
 \ge
 a_{\ell i s}
 +
 a_{\ell j t}
 -1
-```
+$$
 
 Together, these constraints enforce:
 
-```text
+$$
 p_{\ell i j s t}
 =
 a_{\ell i s}a_{\ell j t}
-```
+$$
 
 for binary variables.
 
@@ -188,7 +188,7 @@ for binary variables.
 
 For each atom pair `i<j`:
 
-```text
+$$
 e_{ij}
 =
 \sum_{\ell\in\mathcal L}
@@ -196,21 +196,21 @@ e_{ij}
 I_{\ell st}
 p_{\ell i j s t}
 -Q_{ij}
-```
+$$
 
 ## 5. Objective Function
 
 The objective is to minimize the squared Frobenius mismatch between the target QUBO matrix and the interaction matrix induced by the fixed layout:
 
-```text
+$$
 \min
 \sum_{i<j}
 e_{ij}^2
-```
+$$
 
 Equivalently:
 
-```text
+$$
 \min
 \sum_{i<j}
 \left(
@@ -220,7 +220,7 @@ I_{\ell st}
 p_{\ell i j s t}
 -Q_{ij}
 \right)^2
-```
+$$
 
 This corresponds to the AMPL objective:
 
@@ -239,9 +239,9 @@ The resulting formulation is a **Mixed-Integer Quadratic Program (MIQP)**:
 
 This is substantially more solver-friendly than a direct nonlinear formulation with products such as:
 
-```text
+$$
 u_\ell a_{\ell i s} a_{\ell j t}
-```
+$$
 
 because the bilinear assignment products are explicitly linearized through `p[l,i,j,s,t]`.
 
@@ -253,13 +253,13 @@ The free-space version is implemented in:
 
 Its decision variables are continuous coordinates:
 
-```text
+$$
 x_i,y_i\in[0,L]
-```
+$$
 
 and the objective is:
 
-```text
+$$
 \min
 \sqrt{
 \sum_{i\ne j}
@@ -271,6 +271,6 @@ and the objective is:
 -Q_{ij}
 \right)^2
 }
-```
+$$
 
 This formulation directly optimizes atom positions in the continuous plane, while the fixed-layout formulation restricts the search to a finite calibrated set of possible trapping configurations.
