@@ -35,7 +35,7 @@ U(x)-Q
 \right\|
 $$
 
-where \(U(x)\) is the physical interaction matrix induced by the coordinates.
+where `U(x)` is the physical interaction matrix induced by the coordinates.
 
 A Genetic Algorithm for the free-space version would use:
 
@@ -54,7 +54,7 @@ $$
 (\ell,\pi)
 $$
 
-where \(\ell\) is the selected layout and \(\pi\) is a permutation-like assignment of atoms to sites.
+where `l` is the selected layout and `pi` is a permutation-like assignment of atoms to sites.
 
 For example:
 

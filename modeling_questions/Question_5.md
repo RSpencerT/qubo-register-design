@@ -6,9 +6,9 @@ The proposed formulation is the **Fixed Layout Register Design** MIQP from Quest
 
 The main binary variables are:
 
-* \(u_\ell\): whether layout \(\ell\) is selected;
-* \(a_{\ell i s}\): whether atom \(i\) is assigned to site \(s\) in layout \(\ell\);
-* \(p_{\ell i j s t}\): whether atom pair \((i,j)\) is assigned to site pair \((s,t)\) in layout \(\ell\).
+* `u[l]`: whether layout `l` is selected;
+* `a[l,i,s]`: whether atom `i` is assigned to site `s` in layout `l`;
+* `p[l,i,j,s,t]`: whether atom pair `(i,j)` is assigned to site pair `(s,t)` in layout `l`.
 
 The following valid inequalities strengthen the formulation without removing any feasible solution.
 
@@ -20,7 +20,7 @@ $$
 M_\ell = \sum_{s\in\mathcal S} B_{\ell s}
 $$
 
-where \(B_{\ell s}\) indicates whether site \(s\) is available in layout \(\ell\). Then:
+where `B[l,s]` indicates whether site `s` is available in layout `l`. Then:
 
 $$
 N u_\ell
@@ -63,7 +63,7 @@ u_\ell
 \forall \ell\in\mathcal L,\ i\in A
 $$
 
-This explicitly states that atom \(i\) cannot be assigned to any site of layout \(\ell\) unless layout \(\ell\) is selected.
+This explicitly states that atom `i` cannot be assigned to any site of layout `l` unless layout `l` is selected.
 
 ## 3. Exact Assignment Inside the Selected Layout
 
@@ -112,11 +112,11 @@ N u_\ell
 \forall \ell\in\mathcal L
 $$
 
-This ensures that the selected layout receives exactly \(N\) atom-site assignments, while every non-selected layout receives none.
+This ensures that the selected layout receives exactly `N` atom-site assignments, while every non-selected layout receives none.
 
 ## 5. Pair-Assignment Activation Inequality
 
-For all \(\ell\in\mathcal L\), \(i<j\), and \(s\ne t\):
+For all layouts `l in L`, atom pairs `i<j`, and site pairs `s!=t`:
 
 $$
 p_{\ell i j s t}
@@ -140,7 +140,7 @@ but adding it can tighten the LP relaxation because it directly links pair varia
 
 ## 6. Pair-Assignment Availability Inequality
 
-For all \(\ell\in\mathcal L\), \(i<j\), and \(s\ne t\):
+For all layouts `l in L`, atom pairs `i<j`, and site pairs `s!=t`:
 
 $$
 p_{\ell i j s t}
@@ -158,7 +158,7 @@ If either site is unavailable, the pair assignment must be zero. These are valid
 
 ## 7. Unique Site-Pair Assignment for Each Atom Pair
 
-For every atom pair \(i<j\), exactly one ordered site pair is induced by the selected layout and assignments:
+For every atom pair `i<j`, exactly one ordered site pair is induced by the selected layout and assignments:
 
 $$
 \sum_{\ell\in\mathcal L}
@@ -174,7 +174,7 @@ This is implied by the assignment constraints and the linearization, but adding 
 
 ## 8. Symmetry Reduction for Identical Layouts
 
-If two layouts \(\ell_1\) and \(\ell_2\) have identical interaction matrices:
+If two layouts `l1` and `l2` have identical interaction matrices:
 
 $$
 I_{\ell_1 st}=I_{\ell_2 st}
@@ -190,11 +190,11 @@ u_{\ell_1}
 u_{\ell_2}
 $$
 
-for an arbitrary ordering \(\ell_1 < \ell_2\). This prevents the solver from exploring equivalent solutions multiple times.
+for an arbitrary ordering `l1 < l2`. This prevents the solver from exploring equivalent solutions multiple times.
 
 ## 9. Atom Ordering Symmetry Breaking
 
-If two atoms \(i\) and \(j\) have identical interaction profiles in \(Q\), meaning:
+If two atoms `i` and `j` have identical interaction profiles in `Q`, meaning:
 
 $$
 Q_{ik}=Q_{jk}
@@ -202,9 +202,9 @@ Q_{ik}=Q_{jk}
 \forall k\ne i,j
 $$
 
-then atoms \(i\) and \(j\) are interchangeable. A symmetry-breaking rule can impose an ordering on their assigned site indices.
+then atoms `i` and `j` are interchangeable. A symmetry-breaking rule can impose an ordering on their assigned site indices.
 
-Let \(idx(s)\) be the index of site \(s\). Then:
+Let `idx(s)` be the index of site `s`. Then:
 
 $$
 \sum_{\ell\in\mathcal L}
@@ -234,7 +234,7 @@ I_{\max} =
 \max_{\ell,s,t:s\ne t} I_{\ell st}
 $$
 
-Since the induced interaction for any atom pair must lie between \(I_{\min}\) and \(I_{\max}\), we can bound the error variable:
+Since the induced interaction for any atom pair must lie between `I_min` and `I_max`, we can bound the error variable:
 
 $$
 I_{\min}-Q_{ij}
@@ -250,7 +250,7 @@ These bounds help the solver handle the quadratic objective more tightly.
 
 ## 11. Zero-Target Interaction Cut
 
-If \(Q_{ij}=0\), the model should prefer site pairs with low physical interaction. A valid inequality using a tolerance threshold \(\tau\) can eliminate site-pair assignments that are guaranteed to exceed a user-defined acceptable interaction:
+If `Q[i,j] = 0`, the model should prefer site pairs with low physical interaction. A valid inequality using a tolerance threshold `tau` can eliminate site-pair assignments that are guaranteed to exceed a user-defined acceptable interaction:
 
 $$
 p_{\ell i j s t}=0
@@ -262,11 +262,11 @@ Q_{ij}=0
 I_{\ell st}>\tau
 $$
 
-This is not valid for the unconstrained least-squares model unless \(\tau\) is declared as a hard modeling requirement. If the problem definition allows a maximum acceptable interaction for zero entries, then this cut is valid and very strong.
+This is not valid for the unconstrained least-squares model unless `tau` is declared as a hard modeling requirement. If the problem definition allows a maximum acceptable interaction for zero entries, then this cut is valid and very strong.
 
 ## 12. Large-Target Interaction Candidate Cut
 
-Similarly, if \(Q_{ij}\) is large, site pairs with interactions far below the target can be excluded under a tolerance parameter \(\delta\):
+Similarly, if `Q[i,j]` is large, site pairs with interactions far below the target can be excluded under a tolerance parameter `delta`:
 
 $$
 p_{\ell i j s t}=0
@@ -278,7 +278,7 @@ Q_{ij}>0
 |I_{\ell st}-Q_{ij}|>\delta
 $$
 
-This is valid only when \(\delta\) is imposed as a hard approximation tolerance. It transforms the problem from pure least-squares minimization into a constrained approximation problem.
+This is valid only when `delta` is imposed as a hard approximation tolerance. It transforms the problem from pure least-squares minimization into a constrained approximation problem.
 
 ## 13. Practical AMPL Additions
 

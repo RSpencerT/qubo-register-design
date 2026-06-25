@@ -117,12 +117,12 @@ Represents a complete fixed-layout register design instance.
 
 It stores:
 
-* the target QUBO matrix \(Q\);
+* the target QUBO matrix `Q`;
 * the available layouts;
 * the calibrated trapping sites;
 * the site availability matrix;
 * the site coordinates;
-* the precomputed physical interaction matrix \(I_{\ell st}\).
+* the precomputed physical interaction matrix `I[l,s,t]`.
 
 In the current implementation, this class appears as a Python dataclass in:
 
@@ -169,7 +169,7 @@ $$
 \pi(i)=s
 $$
 
-meaning atom \(i\) is assigned to site \(s\).
+meaning atom `i` is assigned to site `s`.
 
 In the Python implementation, this is represented as a dictionary:
 
@@ -203,7 +203,7 @@ class HeuristicSolution:
 
 Evaluates the quality of a candidate assignment.
 
-For a layout \(\ell\) and assignment \(\pi\), it computes:
+For a layout `l` and assignment `pi`, it computes:
 
 $$
 F(\ell,\pi)
@@ -255,7 +255,7 @@ Improves one initial assignment using simulated annealing.
 At each iteration, it:
 
 1. proposes a neighboring assignment;
-2. evaluates the objective difference \(\Delta\);
+2. evaluates the objective difference `Delta`;
 3. accepts improving moves;
 4. sometimes accepts worse moves with probability:
 

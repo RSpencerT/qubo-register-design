@@ -16,18 +16,18 @@ For comparison, the other related AMPL models are:
 
 Let:
 
-* \(A=\{1,\dots,N\}\) be the set of atoms.
-* \(\mathcal L\) be the set of pre-calibrated layouts.
-* \(\mathcal S\) be the set of trapping sites.
+* `A={1,...,N}` be the set of atoms.
+* `L` be the set of pre-calibrated layouts.
+* `S` be the set of trapping sites.
 
 ## 2. Parameters
 
 The input data are:
 
-* \(Q_{ij}\): target QUBO interaction between atoms \(i\) and \(j\).
-* \(B_{\ell s}\in\{0,1\}\): availability of site \(s\) in layout \(\ell\).
-* \(X_{\ell s},Y_{\ell s}\): coordinates of site \(s\) in layout \(\ell\).
-* \(I_{\ell st}\): precomputed interaction between sites \(s\) and \(t\) in layout \(\ell\).
+* `Q[i,j]`: target QUBO interaction between atoms `i` and `j`.
+* `B[l,s] in {0,1}`: availability of site `s` in layout `l`.
+* `X[l,s]`, `Y[l,s]`: coordinates of site `s` in layout `l`.
+* `I[l,s,t]`: precomputed interaction between sites `s` and `t` in layout `l`.
 
 The physical interaction is precomputed as:
 
@@ -97,7 +97,7 @@ p_{\ell i j s t}
 a_{\ell i s}a_{\ell j t}
 $$
 
-for \(i<j\) and \(s\ne t\).
+for `i<j` and `s!= t`.
 
 ### Interaction Error
 
@@ -107,7 +107,7 @@ $$
 e_{ij}
 $$
 
-be the difference between the physical interaction induced by the selected layout and the target QUBO interaction \(Q_{ij}\).
+be the difference between the physical interaction induced by the selected layout and the target QUBO interaction `Q[i,j]`.
 
 ## 4. Mathematical Formulation
 
@@ -151,7 +151,7 @@ $$
 
 ### Linearization Constraints
 
-For all \(\ell\in\mathcal L\), \(i<j\), and \(s\ne t\):
+For all layouts `l in L`, atom pairs `i<j`, and site pairs `s!=t`:
 
 $$
 p_{\ell i j s t}
@@ -186,7 +186,7 @@ for binary variables.
 
 ### Interaction Error Definition
 
-For each atom pair \(i<j\):
+For each atom pair `i<j`:
 
 $$
 e_{ij}
@@ -243,7 +243,7 @@ $$
 u_\ell a_{\ell i s} a_{\ell j t}
 $$
 
-because the bilinear assignment products are explicitly linearized through \(p_{\ell i j s t}\).
+because the bilinear assignment products are explicitly linearized through `p[l,i,j,s,t]`.
 
 ## 7. Free-Space Reference Formulation
 

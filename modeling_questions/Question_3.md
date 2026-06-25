@@ -1,6 +1,6 @@
 # 3 - Provide an upper-bound and a lower-bound for the cost function given any arbitrary instance of the problem.
 
-The bounds depend on which version of the problem is considered. The most relevant objective in this project is the register-design mismatch between a target QUBO matrix \(Q\) and the physical interaction matrix induced by an atom register.
+The bounds depend on which version of the problem is considered. The most relevant objective in this project is the register-design mismatch between a target QUBO matrix `Q` and the physical interaction matrix induced by an atom register.
 
 ## 1. Free-Space Register Design
 
@@ -18,7 +18,7 @@ F(r)
 \right)^{1/2}
 $$
 
-where \(r_i=(x_i,y_i)\), \(x_i,y_i \in [0,L]\), \(C_6>0\), and \(\varepsilon>0\).
+where `r[i]=(x[i],y[i])`, `x[i], y[i] in [0,L]`, `C_6>0`, and `epsilon>0`.
 
 ### Lower Bound
 
@@ -41,11 +41,11 @@ $$
 \quad \forall i\ne j
 $$
 
-In practice, this exact equality is often impossible due to geometric constraints and frustration, but \(0\) remains the universal lower bound.
+In practice, this exact equality is often impossible due to geometric constraints and frustration, but `0` remains the universal lower bound.
 
 ### Upper Bound
 
-Because of the safety term \(\varepsilon\), the physical interaction is bounded above:
+Because of the safety term `epsilon`, the physical interaction is bounded above:
 
 $$
 0 \le
@@ -54,7 +54,7 @@ $$
 \frac{C_6}{\varepsilon}
 $$
 
-Therefore, for every pair \((i,j)\):
+Therefore, for every pair `(i,j)`:
 
 $$
 \left|
@@ -86,7 +86,7 @@ UB_{\text{free}}
 }
 $$
 
-This bound is conservative but valid for any arbitrary \(Q\).
+This bound is conservative but valid for any arbitrary `Q`.
 
 This objective appears in:
 
@@ -116,7 +116,7 @@ $$
 I_{\ell st}a_{\ell i s}a_{\ell j t}
 $$
 
-Here, \(I_{\ell st}\) is the precomputed interaction between sites \(s\) and \(t\) in layout \(\ell\).
+Here, `I[l,s,t]` is the precomputed interaction between sites `s` and `t` in layout `l`.
 
 ### Lower Bound
 
@@ -207,7 +207,7 @@ $$
 U_{ij}=\frac{C_6}{\|r_i-r_j\|^6}
 $$
 
-and \(\tau\) is a tolerance threshold for zero target interactions.
+and `tau` is a tolerance threshold for zero target interactions.
 
 The lower bound is:
 
@@ -215,7 +215,7 @@ $$
 \boxed{LB_{\text{heur}} = 0}
 $$
 
-If a minimum physical distance \(d_{\min}>0\) is enforced, then:
+If a minimum physical distance `d_min > 0` is enforced, then:
 
 $$
 U_{ij} \le \frac{C_6}{d_{\min}^6}
@@ -293,7 +293,7 @@ $$
 
 These bounds are conservative because not every subset of terms can be activated independently, but they are valid for any arbitrary instance.
 
-A tighter constructive upper bound is obtained by evaluating any feasible binary vector, for example \(x=0\):
+A tighter constructive upper bound is obtained by evaluating any feasible binary vector, for example `x=0`:
 
 $$
 f(0)=0
@@ -305,7 +305,7 @@ $$
 \boxed{UB_{\text{QUBO}} = 0}
 $$
 
-is a valid constructive upper bound when the goal is minimization and \(x=0\) is allowed.
+is a valid constructive upper bound when the goal is minimization and `x=0` is allowed.
 
 This objective appears in:
 
