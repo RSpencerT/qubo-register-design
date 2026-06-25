@@ -1,5 +1,8 @@
 # QUBO Register Design
 
+[![Lint](https://github.com/RSpencerT/qubo-register-design/actions/workflows/lint.yml/badge.svg)](https://github.com/RSpencerT/qubo-register-design/actions/workflows/lint.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 This project studies how a target QUBO interaction matrix can be represented by neutral-atom register geometries. It combines:
 
 * **Python heuristics** for free-space and fixed-layout register design;
